@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cam from IT</title>
+    <meta name="description" content="Cam from IT builds Shopify stores, charm bars, and CamDraft, plus APIs, MCP, and AWS systems for larger businesses.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="page">
+      <header class="masthead">
+        <a class="brand" href="#top">Cam from IT</a>
+        <nav class="nav" aria-label="Page">
+          <a href="#stores">Stores</a>
+          <a href="#charm-bars">Charm bars</a>
+          <a href="#camdraft">CamDraft</a>
+          <a href="#systems">Systems</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main id="main">
+        <section class="opening" id="top">
+          <hr class="mark" aria-hidden="true">
+          <h1>I build the store, the charm bar, and the systems around them.</h1>
+          <p class="lede">Shopify storefronts, fitted to the shop. A charm bar you can run as a product. CamDraft, which drafts product descriptions and alt text from the photo. For a larger business, APIs, MCP, and AWS, with the data kept somewhere you own.</p>
+        </section>
+
+        <section id="stores" aria-labelledby="stores-title">
+          <div class="measure">
+            <h2 id="stores-title">Shopify stores</h2>
+            <p>Full storefront work. Custom sections, the cart, collection pages, and product templates. I start from Dawn when that is the right base, and I fit the work to a custom theme when it is not.</p>
+          </div>
+        </section>
+
+        <section id="charm-bars" aria-labelledby="charm-title">
+          <div class="measure">
+            <h2 id="charm-title">Charm bars</h2>
+            <p>This is a product, not a one-off page.</p>
+            <p>A shopper picks a chain, places charms, and can add engraving. Charm photos are cut out and saved on the product, so the builder and the product page use the same image. Checkout stops a broken set. A charm from a build cannot be bought on its own.</p>
+            <p>The builder can live in the theme or install as a Shopify app. A launch means the catalog is prepared and the storefront is wired up. You do not start from an empty theme.</p>
+          </div>
+        </section>
+
+        <section id="camdraft" aria-labelledby="camdraft-title">
+          <div class="measure">
+            <h2 id="camdraft-title">CamDraft</h2>
+            <p>CamDraft is a Shopify app. It drafts product descriptions and alt text from the photograph and from the facts already on the product.</p>
+            <p>The draft is meant to be found in search, quoted by an answer engine, and read by someone using a screen reader. Nothing is written back to the catalog until a person reviews it.</p>
+            <p class="pending">The App Store link will sit here when the listing is public.</p>
+          </div>
+        </section>
+
+        <section id="systems" aria-labelledby="systems-title">
+          <div class="measure">
+            <h2 id="systems-title">Systems</h2>
+            <p class="pending">This part is still being written. Here is what is already true.</p>
+            <p>I connect the APIs a business already runs on. I can put an MCP server in front of those systems, so an assistant can ask them a question. I work across AWS, and I already run a large database there.</p>
+            <p>The page this section is growing into is the whole path. Sources talk to each other. The data sits in one place the business owns. A number means one thing. The reports and tools are built for that business, rather than rented from a shelf.</p>
+          </div>
+        </section>
+
+        <section id="work" aria-labelledby="work-title">
+          <h2 id="work-title">Selected work</h2>
+          <p class="work-intro">These slots are empty on purpose. Each one takes a name, a sentence about the job, and a link.</p>
+          <ul class="work-list" id="work-list"></ul>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+          <div class="measure">
+            <h2 id="contact-title">Contact</h2>
+            <a class="address" href="mailto:support@camfromit.com">support@camfromit.com</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <p>Cam from IT. Shopify stores, charm bars, and CamDraft. <a href="privacy.html">Privacy</a></p>
+      </footer>
+    </div>
+
+    <script src="work.js"></script>
+    <script>
+      (function () {
+        var list = document.getElementById("work-list");
+        var items = Array.isArray(window.WORK) ? window.WORK : [];
+
+        function safeHref(href) {
+          if (!href) return "";
+          if (href.charAt(0) === "/" && href.charAt(1) !== "/") return href;
+          try {
+            var url = new URL(href);
+            if (url.protocol === "http:" || url.protocol === "https:") return url.href;
+          } catch (error) {
+            return "";
+          }
+          return "";
+        }
+
+        items.forEach(function (item) {
+          var li = document.createElement("li");
+          var name = item && item.name ? String(item.name).trim() : "";
+          var what = item && item.what ? String(item.what).trim() : "";
+          var href = safeHref(item && item.href ? String(item.href).trim() : "");
+
+          if (!name) {
+            var slot = document.createElement("p");
+            slot.className = "slot";
+            slot.textContent = "Open slot";
+            li.appendChild(slot);
+          } else {
+            var heading = document.createElement("h3");
+            if (href) {
+              var link = document.createElement("a");
+              link.href = href;
+              link.textContent = name;
+              heading.appendChild(link);
+            } else {
+              heading.textContent = name;
+            }
+            li.appendChild(heading);
+            if (what) {
+              var detail = document.createElement("p");
+              detail.textContent = what;
+              li.appendChild(detail);
+            }
+          }
+
+          list.appendChild(li);
+        });
+      })();
+    </script>
+  </body>
+</html>
